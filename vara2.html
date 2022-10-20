@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Form 2</title>
+
+    <link rel="stylesheet" href="styles2.css">
+
+    <style type="text/css">
+        em {
+            font-weight: bold;
+            color: black
+        }
+
+        h1 {
+            font-family: tahoma, helvetica, sans-serif
+        }
+
+        p {
+            font-size: 12pt;
+            font-family: arial, sans-serif;
+            border: 2px solid powderblue
+        }
+
+        .special {
+            color: #6666ff
+        }
+
+        #para1 {
+            text-align: center;
+            color: black;
+            font-weight: bold
+        }
+
+
+        .center {
+            text-align: center;
+            color: red;
+            font-size: 20pt;
+        }
+
+        p::first-line {
+            color: #ff0000;
+            font-variant: small-caps;
+        }
+
+        h3 {
+            display: none;
+            background-color: yellow;
+            padding: 20px;
+        }
+
+        div:hover h3 {
+            display: block;
+        }
+
+        h5 {
+            width: 100px;
+            height: 100px;
+            position: relative;
+            background-color: red;
+            animation-name: hi;
+            animation-duration: 4s;
+        }
+
+        @keyframes hi {
+            from {
+                background-color: red;
+            }
+
+            to {
+                background-color: yellow;
+            }
+        }
+
+
+        h4 {
+            width: 300px;
+            height: 50px;
+            border: 2px solid black;
+            padding: 3px;
+            margin: auto;
+
+        }
+    </style>
+
+    <script>
+
+        function em() {
+            alert("Validating your credentials !");
+            var x = document.forms["Form1"]["email"].value;
+            if (x == "vema")
+                alert("Hi Vemasani");
+            else
+                alert("Please enter the valid details");
+        }
+    </script>
+</head>
+
+<body>
+    <form name="Form1" align="center" method="post">
+        <!--20BCE1240 Vemasani Varshini-->
+        <!-- <h5>Hi</h5> -->
+        <div>
+            <p id="para1">Split the expenses easy way and make the life easier !!
+                The modern economy is about the redistribution of the wealth and the time</p>
+            <p class="center">Welcome to the app</p>
+            <div>Hover here for details of the app
+                <h3>Easily splits the amount among the group to be paid by each one of them based on their activities
+                </h3>
+            </div>
+            <h1>Login Form</h1>
+            <p><dfn id="def-validator"></dfn>Please enter this form to <em>login</em> to the application .</p>
+            <img src="billing.jpg" alt="divide bill" width="300" height="200">
+            <hr>
+            <h2 style="color:blue;">Enter the Required Credentials</h2>
+            <table align="center">
+                <tr>
+                    <td> <label for="email"><b>Email or Phone number</b></label> </td>
+                    <td><input type="text" placeholder="Enter Email or Ph.No" name="email"></td>
+                </tr>
+                <tr>
+                    <td><label for="psw"><b>Password</b></label></td>
+                    <td><input type="password" placeholder="Enter Password" name="psw"></td>
+                </tr>
+                <br><br>
+                <tr>
+                    <td><label for="psw-repeat"><b>Repeat Password</b></label></td>
+                    <td><input type="password" placeholder="Repeat Password" name="psw-repeat"></td>
+                </tr>
+            </table>
+            <br>
+            <label>
+                <input type="checkbox" checked="checked" name="remember"> Remember me
+            </label>
+            <br><br>
+            <p class="special">By submitting these details you agree to company's Conditions of Use and Privacy
+                Notice <a class="hover" href="#" style="color:dodgerblue">Terms & Privacy</a>.</p>
+            <h4>Clearly read the terms and the conditions before getting logged in</h4>
+            <br>
+            <div>
+                <button type="button" class="cancelbtn">Cancel</button>&nbsp;
+                <input type="submit" value="Submit" onclick="em()">
+            </div>
+        </div>
+    </form>
+    <h6 class="center" id="id2">Please enter the above credentials</h6>
+</body>
+
+</html>

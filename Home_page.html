@@ -1,0 +1,138 @@
+<!-- 20BCE1936 -->
+<!-- KOVVURI CHANDRA KIRAN REDDY -->
+<html>
+
+<head>
+	<title> Home Page </title>
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		#navbar {
+			text-align: center;
+			background-color: yellow;
+			height: 50px;
+		}
+
+		a {
+			font-size: 30px;
+			color: green;
+			margin-right: 20px;
+			text-decoration: none;
+		}
+
+		#Home {
+			margin-left: 100px;
+		}
+
+		a:hover {
+			color: blue;
+		}
+
+		input[type="submit"] {
+			margin-left: 50px;
+			background-color: cyan;
+			font-size: 20px;
+			cursor: pointer;
+		}
+
+		input {
+			font-size: 20px;
+			margin-left: 50px;
+		}
+
+		#ffff {
+			background-image: url("money.jpg");
+			background-repeat: no-repeat;
+			background-size: cover;
+			opacity: 0.8;
+			height: 100%
+		}
+
+		#logo {
+			border-radius: 20px;
+			padding-top: 8px;
+		}
+
+		#checker {
+			margin-top: 300px;
+
+			text-align: center;
+		}
+
+		#check,
+		#add,
+		#view {
+			text-decoration: none;
+			color: green;
+		}
+
+		input#search:focus {
+			background-color: cyan;
+			color: #6767aa;
+		}
+
+		#hh {
+			margin-left: 500px;
+			;
+		}
+
+		#foot {
+			margin-left: 500px;
+		}
+	</style>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+		integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+	<div id="ffff">
+		<section id="abcd">
+			<div id="navbar">
+				<img id="logo" src="notes.png" />
+				<a href="#" id="Home"> Home </a>
+				<a href="About_page.html"> About </a>
+				<a href="#foot"> Contact Us </a>
+				<a href="how_to_page.html"> How to use</a>
+				<input type="submit" value="Sign in" onclick="abcd()">
+				<input type="submit" value="Login" onclick="vara()">
+				<input type="text" placeholder="                Search " id="search">
+			</div>
+		</section>
+		<div id="hh">
+			<div id="checker">
+
+				<a id="check" href="check.html"> Check expenses </a>
+				<a id="add" href="add_expense.html"> Add Expense </a>
+				<a id="view" href="view.html"> View Activities </a>
+
+			</div>
+		</div>
+	</div>
+	<section id="Contact">
+
+		<div>
+			<div>
+				<div id="foot">
+					<h4> <i class="fas fa-envelope-square"> hehe@gmail.com</i> </h4>
+					<h4> <i class="fab fa-twitter"></i> @abcd9911 </h4>
+					<h4> <i class="fab fa-instagram"> <b> @hello_world1234 </b></i> </h4>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<script>
+		abcd = function(){
+			window.open("SignUp.html")
+		}
+		vara = function(){
+			window.open("vara.html")
+		}
+	</script>
+</body>
+
+</html>
