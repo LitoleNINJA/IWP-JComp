@@ -1,6 +1,25 @@
+<?php
+    $servername = "localhost";
+    $username = "root";
+    $password = "sritwik2";
+    $dbname = "splitWise";
+     
+    // Create connection
+    $conn = new mysqli($servername, $username, $password, $dbname);
+     
+    // Check connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+     
+    $sql = "SELECT * FROM activities WHERE sender_id = '20BCE1053'";
+     
+    $result = $conn->query($sql);
+
+    $conn->close();
+?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -138,25 +157,22 @@
                 <div class="d-flex flex-column align-items-center">
                     <div class="h3">YOU OWE</div>
                     <hr class="border bg-black w-100">
+                    <?php
+                        while($rows=$result->fetch_assoc())
+                        {
+                    ?>
                     <div class="mt-3 prof px-3 rounded-4">
                         <div class="d-flex flex-row">
                             <img src="../Static/default.png" style="border-radius: 50%; width: 100px; height: 100px;">
                             <div class="d-flex flex-column ms-4">
-                                <h4 class="mt-3">Chandra Kiran Reddy</h4>
-                                <p class="h6 text-danger">You owe ₹100</p>
+                                <h4 class="mt-3"><?php echo $rows["reciever"]; ?></h4>
+                                <p class="h6 text-danger">You owe ₹<?php echo $rows["amount"]; ?></p>
                             </div>
                         </div>
                     </div>
-
-                    <div class="mt-3 prof px-3 rounded-4">
-                        <div class="d-flex flex-row">
-                            <img src="../Static/default.png" style="border-radius: 50%; width: 100px; height: 100px;">
-                            <div class="d-flex flex-column ms-4">
-                                <h4 class="mt-3">Chandra Kiran Reddy</h4>
-                                <p class="h6 text-danger">You owe ₹100</p>
-                            </div>
-                        </div>
-                    </div>
+                    <?php
+                        }
+                    ?>
                 </div>
 
                 <div class="vr"></div>
@@ -184,5 +200,4 @@
     <script src="../Script/dashboard.js"></script>
     <script src="../Script/dashboard.php""></script>
 </body>
-
 </html>

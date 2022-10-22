@@ -3,6 +3,32 @@ html, body {
 }
 
 .prof:hover {
-    background-color: #f5f5f5;
+    background-color: #71C9CE;
     cursor: pointer;
+}
+
+.rightDiv {
+    background-color: #E3FDFD;
+}
+
+.leftDiv {
+    background-color: #CBF1F5;
+}
+
+.navbar {
+    background-color: #71C9CE;
+}
+
+.green {
+    background-color: #4DD470;
+}
+.green:hover {
+    background-color: #149E53;
+}
+
+.red {
+    background-color: #F42D2D;
+}
+.red:hover {
+    background-color: #AF1631;
 }
