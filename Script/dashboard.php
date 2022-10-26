@@ -11,10 +11,29 @@
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
-     
-    $sql = "SELECT * FROM activities WHERE sender_id = '20BCE1053'";
-     
-    $result = $conn->query($sql);
+
+    $res1 = $conn->query("SELECT * FROM activities WHERE sender_id = '20BCE1001'");
+    $res2 = $conn->query("SELECT * FROM activities WHERE reciever_id = '20BCE1001'");
+
+    $total_owed = 0;
+    $total_are_owed = 0;
+
+    if($res1->num_rows > 0) {
+        while($row = $res1->fetch_assoc()){
+            $row1[] = $row;
+        }
+        foreach($row1 as $row){
+            $total_owed += $row['amount'];
+        }
+    }
+    if($res2->num_rows > 0) {
+        while($row = $res2->fetch_assoc()){
+            $row2[] = $row;
+        }
+        foreach($row2 as $row){
+            $total_are_owed += $row['amount'];
+        }
+    }
 
     $conn->close();
 ?>
@@ -27,6 +46,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <link rel="stylesheet" href="../Styles/dashboard.css">
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
     <title>Dashboard</title>
 </head>
 
@@ -47,99 +67,61 @@
             <div class="leftDiv col-4">
                 <div class="d-flex flex-column p-5 justify-content-center align-items-center">
                     <button type="button" class="btn red w-75 text-black" data-bs-toggle="modal" data-bs-target="#addExpenseModal"><h5 class="my-1">Add Expense</h5></button>
-                    <button type="button" class="btn green mt-4 w-75 text-black" data-bs-toggle="modal" data-bs-target="#settleExpenseModal"><h5 class="my-1">Settle Expense</h5></button>
+                    <form action="settleExpense.php" method="POST" class="w-75">
+                        <input type="hidden" name="actid" id="actid">
+                        <input type="submit" class="btn green mt-4 text-black w-100 fs-5 fw-semibold" value="Settle Expense">
+                    </form>
 
                     <!-- Add Expense Modal -->
                     <div class="modal" tabindex="-1" id="addExpenseModal">
                         <div class="modal-dialog">
                             <div class="modal-content">
-                                <div class="modal-header bg-danger">
-                                    <h5 class="modal-title">Add Expense</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-
-                                <div class="modal-body">
-                                    <div class="input-group mb-4">
-                                        <span class="input-group-text">Add Others</span>
-                                        <input type="text" class="form-control" placeholder="Regno or Email" aria-label="Username">
-                                    </div>
-                                    <div class="input-group mb-4">
-                                        <textarea class="form-control" aria-label="With textarea" placeholder="Description"></textarea>
-                                    </div>
-                                    <div class="input-group mb-4">
-                                        <span class="input-group-text">₹</span>
-                                        <input type="text" class="form-control" placeholder="0.00" aria-label="Username">
-                                    </div>
-                                    <p class="text-center h6">Paid by you and split equally</p>
-                                    <h5 class="text-center">₹0.0 / person</h5>
-                                    <div class="input-group my-4">
-                                        <span class="input-group-text">Date</span>
-                                        <input type="date" class="form-control" aria-label="Username">
-                                    </div>
-                                </div>
-
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                    <button type="button" class="btn red">Save</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Settle Expense Modal -->
-                    <div class="modal" tabindex="-1" id="settleExpenseModal">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header green">
-                                    <h5 class="modal-title">Settle Expense</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-
-                                <div class="modal-body">
-                                    <div class="d-flex flex-row justify-content-center align-items-center">
-                                        <img src="../Static/default.png" alt="pic">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-arrow-right mx-4" viewBox="0 0 16 16">
-                                            <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
-                                        </svg>
-                                        <img src="../Static/default.png" alt="pic">
+                                <form action="addExpense.php" method="post">
+                                    <div class="modal-header bg-danger">
+                                        <h5 class="modal-title">Add Expense</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
 
-                                    <h5 class="text-center mt-4">You paid Chandra Kiran Reddy</h5>
-
-                                    <div class="input-group my-5 w-50 mx-auto">
-                                        <span class="input-group-text">₹</span>
-                                        <input type="text" class="form-control" placeholder="0.00" aria-label="Username">
+                                    <div class="modal-body">
+                                        <div class="input-group mb-4">
+                                            <span class="input-group-text">Add Others</span>
+                                            <input type="text" class="form-control" placeholder="Regno or Email" aria-label="Username" name="members" style="text-transform: uppercase" id="mem">
+                                        </div>
+                                        <div class="input-group mb-4">
+                                            <textarea class="form-control" aria-label="With textarea" placeholder="Description" name="desc"></textarea>
+                                        </div>
+                                        <div class="input-group mb-4">
+                                            <span class="input-group-text">₹</span>
+                                            <input type="text" class="form-control" placeholder="0.00" aria-label="Username" name="amount" id="amount">
+                                        </div>
+                                        <p class="text-center h6">Paid by you and split equally</p>
+                                        <h5 class="text-center" id="amountText">₹ 0.0 / person</h5>
+                                        <div class="input-group my-4">
+                                            <span class="input-group-text">Date</span>
+                                            <input type="date" class="form-control" aria-label="Username" name="date">
+                                        </div>
+                                        <input type="hidden" name="reciever_id" id="sid" value="">
+                                        <input type="hidden" name="reciever_name" id="sname" value="">
                                     </div>
-                                    <div class="input-group mt-5 mb-3 w-75 mx-auto">
-                                        <span class="input-group-text">Date</span>
-                                        <input type="date" class="form-control" aria-label="Username">
-                                    </div>
-                                </div>
 
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                    <button type="button" class="btn green">Save</button>
-                                </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                        <input type="submit" class="btn red" value="Save"></input>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
                 <hr>
+                <!-- Total Expense -->
                 <div class="d-flex flex-column me-5 pe-5 ps-4">
-                    <div class="h4 d-flex flex-row justify-content-between mt-3">
-                        <div>
-                            Total Balance :
-                        </div>
-                        <div>
-                            ₹ 100
-                        </div>
-                    </div>
                     <div class="h4 d-flex flex-row justify-content-between mt-5">
                         <div>
                             You Owe :
                         </div>
                         <div class="text-danger">
-                            ₹ 50
+                            ₹ <?php echo $total_owed; ?>
                         </div>
                     </div>
                     <div class="h4 d-flex flex-row justify-content-between mt-5">
@@ -147,48 +129,75 @@
                             You are Owed :
                         </div>
                         <div class="text-success">
-                            ₹ 150
+                            ₹ <?php echo $total_are_owed; ?>
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="rigthDiv col d-flex flex-row justify-content-evenly pt-3">
-                <div class="d-flex flex-column align-items-center">
+                <!-- You Owe -->
+                <div class="d-flex flex-column align-items-center w-100 mx-5">
                     <div class="h3">YOU OWE</div>
                     <hr class="border bg-black w-100">
                     <?php
-                        while($rows=$result->fetch_assoc())
-                        {
+                        if($res1->num_rows > 0) {
+                            foreach($row1 as $row)
+                            {
+                                $date1 = date("Y-m-d");
+                                $date2 = date_create($row['date']);
+                                $diff = date_diff(date_create($date1), $date2);
+                                $diff = $diff->format("%a");
                     ?>
-                    <div class="mt-3 prof px-3 rounded-4">
-                        <div class="d-flex flex-row">
+                    <div class="mt-3 prof rounded-4 w-100 expense" onclick="handleSelect(<?php echo $row['id'] ?>)">
+                        <div class="d-flex flex-row ms-5">
                             <img src="../Static/default.png" style="border-radius: 50%; width: 100px; height: 100px;">
-                            <div class="d-flex flex-column ms-4">
-                                <h4 class="mt-3"><?php echo $rows["reciever"]; ?></h4>
-                                <p class="h6 text-danger">You owe ₹<?php echo $rows["amount"]; ?></p>
+                            <div class="d-flex flex-column mx-4 w-100">
+                                <h4 class="mt-3"><?php echo $row["reciever_name"]; ?></h4>
+                                <div class="d-flex flex-row align-items-center justify-content-between">
+                                    <p class="h6 text-danger m-0">You owe ₹<?php echo $row["amount"]; ?></p>
+                                    <p class="m-0 fw-bold text-muted"><?php echo "$diff " ?>Days Ago</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <?php
+                            }
                         }
                     ?>
                 </div>
 
                 <div class="vr"></div>
 
-                <div class="d-flex flex-column align-items-center">
+                <!-- You Are Owed -->
+                <div class="d-flex flex-column align-items-center w-100 mx-5">
                     <div class="h3">YOU ARE OWED</div>
                     <hr class="border bg-black w-100">
-                    <div class="mt-3 prof px-3 rounded-4">
-                        <div class="d-flex flex-row">
+                    <?php
+                        if($res2->num_rows > 0) {
+                            foreach($row2 as $row)
+                            {
+                                $date1 = date("Y-m-d");
+                                $date2 = date_create($row['date']);
+                                $diff = date_diff(date_create($date1), $date2);
+                                $diff = $diff->format("%a");
+                    ?>
+                    <div class="mt-3 prof px-3 rounded-4 w-100">
+                        <div class="d-flex flex-row ms-5">
                             <img src="../Static/default.png" style="border-radius: 50%; width: 100px; height: 100px;">
-                            <div class="d-flex flex-column ms-4">
-                                <h4 class="mt-3">Chandra Kiran Reddy</h4>
-                                <p class="h6 text-success">Owes you ₹100</p>
+                            <div class="d-flex flex-column mx-4 w-100">
+                                <h4 class="mt-3"><?php echo $row["sender_name"]; ?></h4>
+                                <div class="d-flex flex-row align-items-center justify-content-between">
+                                    <p class="h6 text-success m-0">Owes you ₹<?php echo $row["amount"]; ?></p>
+                                    <p class="m-0 fw-bold text-muted"><?php echo "$diff " ?>Days Ago</p>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <?php
+                            }
+                        }
+                    ?>
                 </div>
             </div>
         </div>
@@ -196,8 +205,8 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
-        crossorigin="anonymous"></script>
-    <script src="../Script/dashboard.js"></script>
-    <script src="../Script/dashboard.php""></script>
+        crossorigin="anonymous">
+    </script>
+    <script src="dashboard.js"></script>
 </body>
 </html>

@@ -32,3 +32,7 @@ html, body {
 .red:hover {
     background-color: #AF1631;
 }
+
+.active {
+    background-color: #71C9CE;
+}
