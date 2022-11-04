@@ -1,42 +1,3 @@
-<?php
-    $servername = "localhost";
-    $username = "root";
-    $password = "sritwik2";
-    $dbname = "splitWise";
-     
-    // Create connection
-    $conn = new mysqli($servername, $username, $password, $dbname);
-     
-    // Check connection
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-
-    $res1 = $conn->query("SELECT * FROM activities WHERE sender_id = '20BCE1001'");
-    $res2 = $conn->query("SELECT * FROM activities WHERE reciever_id = '20BCE1001'");
-
-    $total_owed = 0;
-    $total_are_owed = 0;
-
-    if($res1->num_rows > 0) {
-        while($row = $res1->fetch_assoc()){
-            $row1[] = $row;
-        }
-        foreach($row1 as $row){
-            $total_owed += $row['amount'];
-        }
-    }
-    if($res2->num_rows > 0) {
-        while($row = $res2->fetch_assoc()){
-            $row2[] = $row;
-        }
-        foreach($row2 as $row){
-            $total_are_owed += $row['amount'];
-        }
-    }
-
-    $conn->close();
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -51,6 +12,50 @@
 </head>
 
 <body>
+<?php
+    session_start();
+    $reg_no = $_SESSION['regno'];
+
+    $servername = "localhost";
+    $username = "root";
+    $password = "sritwik2";
+    $dbname = "splitWise";
+     
+    // Create connection
+    $conn = new mysqli($servername, $username, $password, $dbname);
+     
+    // Check connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    
+
+    $res1 = $conn->query("SELECT * FROM activities WHERE sender_id = '$reg_no'");
+    $res2 = $conn->query("SELECT * FROM activities WHERE reciever_id = '$reg_no'");
+
+    $total_owed = 0;
+    $total_are_owed = 0;
+
+    if($res1->num_rows > 0) {
+        while($row = $res1->fetch_assoc()){
+            $row1[] = $row;
+        }
+        foreach($row1 as $row) {
+            $total_owed += $row['amount'];
+        }
+    }
+    if($res2->num_rows > 0) {
+        while($row = $res2->fetch_assoc()){
+            $row2[] = $row;
+        }
+        foreach($row2 as $row) {
+            $total_are_owed += $row['amount'];
+        }
+    }
+
+    $conn->close();
+?>
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container-fluid text-black">
             <h3 class="h3 ms-3"><a class="navbar-brand" href="#">Navbar</a></h3>

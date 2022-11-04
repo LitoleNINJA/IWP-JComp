@@ -1,9 +1,9 @@
+var user = {};
 $(document).ready(function(){
-    var user = localStorage.getItem("user");
+    user = localStorage.getItem("regno");
     user = JSON.parse(user);
     
-    $("#sid").val(user.regno);
-    $("#sname").val(user.name);
+    $("#sid").val(user);
 });
 
 $("#amount, #mem").keyup(function(){

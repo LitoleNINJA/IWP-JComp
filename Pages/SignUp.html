@@ -6,69 +6,15 @@
     <title>Sign Up</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,400;1,700;1,900&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-    <style>
-        #d2 {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        label {
-            font-size: 25px;
-            margin-right: 2rem;
-        }
-
-        table {
-            border-collapse: separate;
-            border-spacing: 0 15px;
-        }
-
-        tr {
-            height: 40px;
-        }
-
-        input[type="button"] {
-            display: block;
-            width: 60%;
-            margin: 3rem auto 0;
-            font-size: 25px;
-            box-shadow: 0 4px 6px rgba(50, 50, 93, .11), 0 1px 3px rgba(0, 0, 0, .08);
-            background-image: linear-gradient(to right, #895cf2 0%, #ffabf4 50%, #895cf2 100%);
-            transition: 0.5s;
-            background-size: 200% auto;
-            border-radius: 6px;
-        }
-
-        input[type="button"]:hover {
-            background-position: right center;
-            cursor: pointer;
-        }
-
-        .logo {
-            width: 20%;
-        }
-
-        ::selection {
-            color: red;
-            background: yellow;
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../Styles/signup.css">
 </head>
 
 <body>
-    <div>
-        <a href="https://chennai.vit.ac.in/" target="__blank"">
-<img class=" logo" src="https://chennai.vit.ac.in/wp-content/uploads/2020/10/vitlogo.png">
-        </a>
-    </div>
     <div id="d2">
-        <h1 style="font-size: 3rem;"> Sign Up Form </h1>
+        <h1 style="font-size: 3rem; margin-top: 8rem;"> Sign Up Form </h1>
         <p style="margin-top: 0;">Fill in the form to become a member.</p>
-        <form name="form1">
+        <form name="form1" action="store.php" method="POST">
             <table>
                 <tr>
                     <td><label for="name"><b>Name </b></label></td>
@@ -78,10 +24,10 @@
                     <td><label for="regno"><b>Registration No </b></label></td>
                     <td><input id="regno" type="text" placeholder="Eg. 20BCE1001" name="regno"></td>
                 </tr>
-                <tr>
-                    <td><label for="email"><b>Email </b></label></td>
-                    <td><input id="email" type="email" placeholder="Your Email Address" name="email"></td>
-                </tr>
+                    <tr>
+                        <td><label for="email"><b>Email </b></label></td>
+                        <td><input id="email" type="email" placeholder="Your Email Address" name="email"></td>
+                    </tr>
                 <tr>
                     <td><label for="phone"><b>Phone </b></label></td>
                     <td><input id="phone" type="text" placeholder="Your Contact Number" name="phone"></td>
@@ -95,7 +41,7 @@
                     <td><input id="conpass" type="password" name="conpass"></td>
                 </tr>
                 <tr style="text-align:center; height:50px">
-                    <td colspan="2"><input type="button" value="SUBMIT" onclick="handleSubmit()"></td>
+                    <td colspan="2"><input type="submit" value="SUBMIT"></td>
                 </tr>
                 <tr style="text-align:center; height:50px">
                     <td colspan="2"><a href="login.html" style="font-size: 16px;" target="__blank">Already a member ?
@@ -104,8 +50,5 @@
             </table>
         </form>
     </div>
-    <div id="d3" style="display: none"></div>
-    <script src="script.js"></script>
 </body>
-
 </html>
