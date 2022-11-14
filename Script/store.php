@@ -8,6 +8,7 @@
     $conpass = trim($_POST['conpass']);
 
     $_SESSION['regno'] = $rgd_no;
+    $_SESSION['name'] = $name;
 
     if (empty($name)) {
         echo '<script> alert("Please enter your name") </script>';
@@ -54,7 +55,7 @@
         die;
     }
 
-    if(strlen($pass)<8)
+    if(strlen($pass) < 8)
     {
         echo '<script> alert("Password should have minimum 8 characters") </script>';   
         $page = file_get_contents("http://localhost/iwp%20project/SignUp.html");
@@ -78,18 +79,32 @@
         die;
     }
 
+    $target_dir = "uploads/";
+    $target_file = $target_dir . basename($_FILES["pic"]["name"]);
+    $uploadOk = 1;
+    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+    // Check if image file is a actual image or fake image
+    if(isset($_POST["submit"])) {
+        $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+        if($check !== false) {
+            echo "File is an image - " . $check["mime"] . ".";
+            $uploadOk = 1;
+        } else {
+            echo "File is not an image.";
+            $uploadOk = 0;
+        }
+    }
+
     include('connect.php');
     $query = 'insert into users values("' . $name . '","' . $rgd_no . '","' . $email . '",' .  $phone . ',"' .$pass . '");';
     $retvalue = mysqli_query($conn,$query);
     if($retvalue)
     {
-        $page = file_get_contents("http://localhost/iwp%20project/vara2.html"); // redirecting to login page
-        echo $page;   
+        header('Location: http://localhost/IWP-JCOMP/Script/dashboard.php');
     }
     else
     {
         echo '<script> alert("Sign up failed due to some error in database updation...") </script>';      
         echo '<script> alert("Sorry... please re-enter the details to signup")</script>';
-        $page = file_get_contents("http://localhost/iwp%20project/SignIp.html"); // redirecting to login page
-        echo $page;  
+        header('Location: http://localhost/IWP-JCOMP/SignUp.html'); 
     }

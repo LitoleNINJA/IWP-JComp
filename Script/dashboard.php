@@ -14,6 +14,9 @@
 <body>
 <?php
     session_start();
+    if(!isset($_SESSION['regno'])){
+        header("Location: ../Pages/Login.html");
+    }
     $reg_no = $_SESSION['regno'];
 
     $servername = "localhost";
@@ -21,18 +24,14 @@
     $password = "sritwik2";
     $dbname = "splitWise";
      
-    // Create connection
     $conn = new mysqli($servername, $username, $password, $dbname);
-     
-    // Check connection
+
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    
-
-    $res1 = $conn->query("SELECT * FROM activities WHERE sender_id = '$reg_no'");
-    $res2 = $conn->query("SELECT * FROM activities WHERE reciever_id = '$reg_no'");
+    $res1 = $conn->query("SELECT * FROM activities WHERE sender_id = '$reg_no' AND settled = 0");
+    $res2 = $conn->query("SELECT * FROM activities WHERE reciever_id = '$reg_no' AND settled = 0");
 
     $total_owed = 0;
     $total_are_owed = 0;
@@ -55,22 +54,13 @@
     }
 
     $conn->close();
-?>
-    <nav class="navbar navbar-expand-lg navbar-light">
-        <div class="container-fluid text-black">
-            <h3 class="h3 ms-3"><a class="navbar-brand" href="#">Navbar</a></h3>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-        </div>
-    </nav>
 
+    include('navbar.php');
+?>
     <div class="container-fluid h-100">
         <div class="row h-100">
-            <div class="leftDiv col-4">
-                <div class="d-flex flex-column p-5 justify-content-center align-items-center">
+            <div class="leftDiv col-3">
+                <div class="d-flex flex-column py-5 justify-content-center align-items-center">
                     <button type="button" class="btn red w-75 text-black" data-bs-toggle="modal" data-bs-target="#addExpenseModal"><h5 class="my-1">Add Expense</h5></button>
                     <form action="settleExpense.php" method="POST" class="w-75">
                         <input type="hidden" name="actid" id="actid">
@@ -106,7 +96,7 @@
                                             <input type="date" class="form-control" aria-label="Username" name="date">
                                         </div>
                                         <input type="hidden" name="reciever_id" id="sid" value="">
-                                        <input type="hidden" name="reciever_name" id="sname" value="">
+                                        <input type="hidden" name="perPerson" id="perPerson" value="">
                                     </div>
 
                                     <div class="modal-footer">
@@ -120,7 +110,7 @@
                 </div>
                 <hr>
                 <!-- Total Expense -->
-                <div class="d-flex flex-column me-5 pe-5 ps-4">
+                <div class="d-flex flex-column me-3 ps-4">
                     <div class="h4 d-flex flex-row justify-content-between mt-5">
                         <div>
                             You Owe :
@@ -156,7 +146,7 @@
                     ?>
                     <div class="mt-3 prof rounded-4 w-100 expense" onclick="handleSelect(<?php echo $row['id'] ?>)">
                         <div class="d-flex flex-row ms-5">
-                            <img src="../Static/default.png" style="border-radius: 50%; width: 100px; height: 100px;">
+                            <img src="../Assets/default.png" style="border-radius: 50%; width: 100px; height: 100px;">
                             <div class="d-flex flex-column mx-4 w-100">
                                 <h4 class="mt-3"><?php echo $row["reciever_name"]; ?></h4>
                                 <div class="d-flex flex-row align-items-center justify-content-between">
@@ -189,7 +179,7 @@
                     ?>
                     <div class="mt-3 prof px-3 rounded-4 w-100">
                         <div class="d-flex flex-row ms-5">
-                            <img src="../Static/default.png" style="border-radius: 50%; width: 100px; height: 100px;">
+                            <img src="../Assets/default.png" style="border-radius: 50%; width: 100px; height: 100px;">
                             <div class="d-flex flex-column mx-4 w-100">
                                 <h4 class="mt-3"><?php echo $row["sender_name"]; ?></h4>
                                 <div class="d-flex flex-row align-items-center justify-content-between">

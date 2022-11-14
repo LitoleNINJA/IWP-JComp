@@ -16,7 +16,6 @@
     $rgd = $_POST['rgd'];
     $pass = $_POST['psw'];
 
-    //  checking existence of user
     $query = 'SELECT * FROM users WHERE regno="' . $rgd . '";';
     $res = mysqli_query($conn, $query);
     $rows = mysqli_num_rows($res);
@@ -24,6 +23,7 @@
         $user = mysqli_fetch_assoc($res);
         if ($user['password'] == $pass) {
             $_SESSION['regno'] = $rgd;
+            $_SESSION['name'] = $user['name'];
             $test = $_SESSION['regno'];
             echo "<script>
                 localStorage.setItem('regno', JSON.stringify('$rgd'));

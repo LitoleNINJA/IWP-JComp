@@ -1,15 +1,8 @@
-var user = {};
-$(document).ready(function(){
-    user = localStorage.getItem("regno");
-    user = JSON.parse(user);
-    
-    $("#sid").val(user);
-});
-
 $("#amount, #mem").keyup(function(){
     var amount = $("#amount").val();
     var count = $("#mem").val().trim().split(" ").length + 1;
-    var value = (Math.round(amount / count * 100) / 100).toFixed(2)
+    var value = (Math.round(amount / count * 100) / 100).toFixed(2);
+    $("#perPerson").val(value);
     $("#amountText").text("₹ " + value + " / person");
 });
 
