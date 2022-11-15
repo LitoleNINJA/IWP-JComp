@@ -12,71 +12,56 @@
 
     if (empty($name)) {
         echo '<script> alert("Please enter your name") </script>';
-        $page = file_get_contents("http://localhost/iwp%20project/SignUp.html");
-        echo $page;
+        header("Location: ../Pages/SignUp.html");
     }
 
     if(empty($rgd_no))
     {
         echo '<script> alert("Please enter your registration number") </script>';   
-        $page = file_get_contents("http://localhost/iwp%20project/SignUp.html");
-        echo $page;
+        header("Location: ../Pages/SignUp.html");
     }
 
     $patt = "/[0-9]{2}[a-zA-z]{3}[0-9]{4}/";
     if(!preg_match($patt,$rgd_no))
     {
         echo '<script> alert("Please enter valid registartion number") </script>';   
-        $page = file_get_contents("http://localhost/iwp%20project/SignUp.html");
-        echo $page;
+        header("Location: ../Pages/SignUp.html");
     }
 
     if(empty($email))
     {
         echo '<script> alert("Please enter your email id") </script>';   
-        $page = file_get_contents("http://localhost/iwp%20project/SignUp.html");
-        echo $page;
-        die;
+        header("Location: ../Pages/SignUp.html");
     }
 
     if(empty($phone))
     {
         echo '<script> alert("Please enter your phone number") </script>';   
-        $page = file_get_contents("http://localhost/iwp%20project/SignUp.html");
-        echo $page;
-        die;
+        header("Location: ../Pages/SignUp.html");
     }
 
     if(empty($pass))
     {
         echo '<script> alert("Please enter your password") </script>';   
-        $page = file_get_contents("http://localhost/iwp%20project/SignUp.html");
-        echo $page;
-        die;
+        header("Location: ../Pages/SignUp.html");
     }
 
     if(strlen($pass) < 8)
     {
         echo '<script> alert("Password should have minimum 8 characters") </script>';   
-        $page = file_get_contents("http://localhost/iwp%20project/SignUp.html");
-        echo $page;
-        die;
+        header("Location: ../Pages/SignUp.html");
     }
 
     if(empty($conpass))
     {
         echo '<script> alert("Please enter your confirm password") </script>';   
-        $page = file_get_contents("http://localhost/iwp%20project/SignUp.html");
-        echo $page;
-        die;
+        header("Location: ../Pages/SignUp.html");
     }
 
     if($pass != $conpass)
     {
         echo '<script> alert("Password and confirm password should match") </script>';   
-        $page = file_get_contents("http://localhost/iwp%20project/SignUp.html");
-        echo $page;
-        die;
+        header("Location: ../Pages/SignUp.html");
     }
 
     $target_dir = "uploads/";
@@ -96,7 +81,7 @@
     }
 
     include('connect.php');
-    $query = 'insert into users values("' . $name . '","' . $rgd_no . '","' . $email . '",' .  $phone . ',"' .$pass . '");';
+    $query = "INSERT INTO `users`(`name`, `regno`, `email`, `phone`, `password`) VALUES ('$name','$rgd_no','$email','$phone','$pass')";
     $retvalue = mysqli_query($conn,$query);
     if($retvalue)
     {

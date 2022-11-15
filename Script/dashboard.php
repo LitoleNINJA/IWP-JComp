@@ -19,16 +19,7 @@
     }
     $reg_no = $_SESSION['regno'];
 
-    $servername = "localhost";
-    $username = "root";
-    $password = "sritwik2";
-    $dbname = "splitWise";
-     
-    $conn = new mysqli($servername, $username, $password, $dbname);
-
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
+    include('connect.php');
 
     $res1 = $conn->query("SELECT * FROM activities WHERE sender_id = '$reg_no' AND settled = 0");
     $res2 = $conn->query("SELECT * FROM activities WHERE reciever_id = '$reg_no' AND settled = 0");
