@@ -18,14 +18,7 @@
     $regno = $_SESSION['regno'];
     include('navbar.php');
 
-    $servername = "localhost";
-    $username = "root";
-    $pass = "sritwik2";
-    $conn = mysqli_connect($servername, $username, $pass);
-    mysqli_select_db($conn, "splitwise");
-    if (mysqli_connect_error()) {
-        die("Connection failed" . $conn->connect_error);
-    };
+    include('connect.php');
 
     $query = "select * from users where regno='" . $regno . "';";
     $result = mysqli_query($conn, $query);

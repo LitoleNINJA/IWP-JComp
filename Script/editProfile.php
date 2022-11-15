@@ -5,20 +5,46 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
     <title>Edit Profile</title>
-    <link rel="stylesheet" href="../Styles/profile.css">
+    <style>
+        body{
+            background-color: cyan;
+        }
+        h2 {
+            margin-left: 600px;
+        }
+        td {
+            padding: 10px;
+        }
+        ::selection{
+            background-color: black;
+            color: white;
+        }
+
+        .main {
+            margin: 40px 500px;
+            border: 2px solid blueviolet;
+            border-radius: 35px;
+            width: fit-content;
+            padding: 20px;
+            background-color: yellow;
+        }
+        input{
+            border-radius: 5px;
+            border-color: grey;
+            border-top : 0px;
+            border-left: 0px;
+            border-right: 0px;
+            padding: 5px;
+        }
+    </style>
 </head>
 <body>
     <?php
-        $servername = "localhost";
-        $username = "root";
-        $pass = "sritwik2";
-        $conn = mysqli_connect($servername, $username, $pass);
-        mysqli_select_db($conn, "splitwise");
-        if (mysqli_connect_error()) {
-            die("Connection failed" . $conn->connect_error);
-        };
+    session_start() ;
+        include('connect.php');
+        $regno = $_SESSION['regno'];
  
-        $query = "select * from users where regno='20BCE1936';";
+        $query = "SELECT * FROM users WHERE regno = '$regno'";
         $result = mysqli_query($conn,$query);
         $row = mysqli_fetch_assoc($result);
     ?>
@@ -29,7 +55,7 @@
             <table>
                 <tr>
                     <td> <?php echo "Registartion No"; ?> </td>
-                    <td> <?php echo "20BCE1936"; ?> </td> <!--  use session variables -->
+                    <td> <?php echo $regno; ?> </td> <!--  use session variables -->
                 </tr>
                 <tr>
                     <td> <?php echo "Name"; ?> </td>
