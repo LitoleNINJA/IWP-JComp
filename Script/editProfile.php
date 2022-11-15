@@ -51,7 +51,7 @@
 
     <h2 style="margin-top:40px"> Edit profile </h2>
     <div class="main">
-        <form action="update.php" method="POST">
+        <form action="updateProfile.php" method="POST">
             <table>
                 <tr>
                     <td> <?php echo "Registartion No"; ?> </td>
