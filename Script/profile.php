@@ -28,7 +28,7 @@
     <div class="main">
         <div class="left">
             <div style="margin-top: 3rem;">
-                <img src="./photos/myphoto.png" alt="">
+                <img src="../uploads/<?php echo $row['pic'];?>" alt="">
             </div>
             <br>
             <div id="details_container">
@@ -46,7 +46,7 @@
                         <td> <?php echo $row['email'];?> </td>
                     </tr>
                     <tr>
-                        <td> phone </td>
+                        <td> Phone </td>
                         <td> <?php echo $row['phone'];?> </td>
                     </tr>
                     <tr>
